@@ -1,0 +1,201 @@
+import type { Level, Badge } from '@/types';
+
+export const LEVELS: Level[] = [
+  { id: 1,  label: 'Lv.1',  name: '基本5文型',      desc: '主語・動詞・目的語など、英文の基本構造を押さえる',           color: '#10B981', bg: '#F0FDF4', border: '#A7F3D0', xpMax: 150 },
+  { id: 2,  label: 'Lv.2',  name: '時制の基本',      desc: '現在・過去・未来形を正しく使い分ける',                     color: '#3B82F6', bg: '#EFF6FF', border: '#BFDBFE', xpMax: 200 },
+  { id: 3,  label: 'Lv.3',  name: '現在完了・進行形', desc: 'have done / be doing を使って状態・継続を表現する',        color: '#06B6D4', bg: '#ECFEFF', border: '#A5F3FC', xpMax: 300 },
+  { id: 4,  label: 'Lv.4',  name: '関係代名詞',      desc: 'who / which / that を使って情報を繋げる',                  color: '#EC4899', bg: '#FDF2F8', border: '#FBCFE8', xpMax: 400 },
+  { id: 5,  label: 'Lv.5',  name: '不定詞・動名詞',  desc: 'to do / doing の使い分けをマスターする',                   color: '#14B8A6', bg: '#F0FDFA', border: '#99F6E4', xpMax: 500 },
+  { id: 6,  label: 'Lv.6',  name: '仮定法',          desc: 'if 節・would / could を使った仮定の表現',                  color: '#8B5CF6', bg: '#F5F3FF', border: '#DDD6FE', xpMax: 600 },
+  { id: 7,  label: 'Lv.7',  name: '受動態・使役',    desc: 'be done / have O done で出来事を客観的に述べる',           color: '#F97316', bg: '#FFF7ED', border: '#FED7AA', xpMax: 700 },
+  { id: 8,  label: 'Lv.8',  name: '比較表現',        desc: 'more / as...as / the most を使って比べる',                 color: '#EF4444', bg: '#FEF2F2', border: '#FECACA', xpMax: 800 },
+  { id: 9,  label: 'Lv.9',  name: '論理的表現',      desc: 'however / therefore / although で論理展開する',            color: '#64748B', bg: '#F8FAFC', border: '#CBD5E1', xpMax: 900 },
+  { id: 10, label: 'Lv.10', name: 'ビジネス表現',    desc: 'メール・報告書で使える定型表現・敬語ニュアンス',           color: '#F59E0B', bg: '#FFFBEB', border: '#FDE68A', xpMax: 1000 },
+];
+
+export const BADGE_DEFINITIONS: Omit<Badge, 'earned' | 'earnedDate'>[] = [
+  { id: 1,  emoji: '🔥', label: '7日連続',    desc: '7日間連続で学習する',              condition: 'ストリーク7日以上' },
+  { id: 2,  emoji: '📝', label: '20回完了',   desc: '添削を20回完了する',               condition: 'あと{n}回' },
+  { id: 3,  emoji: '⭐', label: '関係代名詞', desc: 'Lv.4 Challenge Modeをクリアする',  condition: 'Lv.4に挑戦' },
+  { id: 4,  emoji: '💼', label: 'ビジネスメール', desc: 'ビジネス文体で添削を受ける',   condition: 'ビジネス文体で添削' },
+  { id: 5,  emoji: '🏆', label: '満点スコア', desc: '添削で100点を獲得する',            condition: 'スコア100点が必要' },
+  { id: 6,  emoji: '📅', label: '30日連続',   desc: '30日間連続で学習する',             condition: 'あと{n}日' },
+  { id: 7,  emoji: '💯', label: '50回完了',   desc: '添削を50回完了する',               condition: 'あと{n}回' },
+  { id: 8,  emoji: '🎯', label: 'Lv.10到達',  desc: 'Challenge Mode でLv.10に到達する', condition: 'Lv.10未解放' },
+  { id: 9,  emoji: '✍️', label: '100語達成',  desc: '一度に100語以上書く',              condition: '最大記録: {n}語' },
+];
+
+export const CHALLENGE_PROMPTS: { lvId: number; prompt: string; hint: string; keywords: string[]; wordRange: string; grammar: string }[][] = [
+  // Lv.1 基本5文型
+  [
+    { lvId: 1, grammar: '基本5文型', wordRange: '60〜80語',
+      prompt: 'あなたの日常のルーティンを英語で説明してください。',
+      hint: '主語＋動詞＋目的語の基本構造（SVO）を意識して書きましょう。',
+      keywords: ['I', 'every day', 'usually'] },
+    { lvId: 1, grammar: '基本5文型', wordRange: '60〜80語',
+      prompt: '好きな食べ物と、それを好きな理由を英語で書いてください。',
+      hint: 'S＋V＋C（例: It tastes good.）や S＋V＋O（例: I like sushi.）の形を使いましょう。',
+      keywords: ['I like', 'because', 'it is'] },
+    { lvId: 1, grammar: '基本5文型', wordRange: '60〜80語',
+      prompt: 'あなたの家族や友人を一人紹介してください。',
+      hint: '「～は～です」「～は～を持っています」など、基本文型を組み合わせて書きましょう。',
+      keywords: ['My', 'has', 'is'] },
+  ],
+  // Lv.2 時制の基本
+  [
+    { lvId: 2, grammar: '時制の基本', wordRange: '70〜100語',
+      prompt: '今日の予定と、昨日したことを英語で書いてください。',
+      hint: '現在形・過去形・未来形（will / be going to）を使い分けましょう。',
+      keywords: ['yesterday', 'will', 'am going to', 'today'] },
+    { lvId: 2, grammar: '時制の基本', wordRange: '70〜100語',
+      prompt: '子どもの頃の習慣と、今の生活を比べて書いてください。',
+      hint: 'used to（昔の習慣）と現在形を組み合わせましょう。',
+      keywords: ['used to', 'now', 'before', 'these days'] },
+    { lvId: 2, grammar: '時制の基本', wordRange: '70〜100語',
+      prompt: '来年の目標と、去年の振り返りを英語で書いてください。',
+      hint: '過去形で振り返り、will / am going to で目標を表現しましょう。',
+      keywords: ['last year', 'will', 'plan to', 'next year'] },
+  ],
+  // Lv.3 現在完了・進行形
+  [
+    { lvId: 3, grammar: '現在完了・進行形', wordRange: '70〜100語',
+      prompt: '最近ハマっていることや始めたことを英語で説明してください。',
+      hint: '現在完了進行形（have been doing）や現在完了（have started）を使いましょう。',
+      keywords: ['have been', 'recently', 'started', 'for'] },
+    { lvId: 3, grammar: '現在完了・進行形', wordRange: '70〜100語',
+      prompt: '昨日あったことと、最近継続して取り組んでいることを書いてください。',
+      hint: '過去形（did）と現在完了（have done）を意識して使い分けましょう。',
+      keywords: ['yesterday', 'have been', 'since', 'already'] },
+    { lvId: 3, grammar: '現在完了・進行形', wordRange: '70〜100語',
+      prompt: '子どもの頃と今を比べて、変わったことや変わらないことを書いてください。',
+      hint: '過去形（used to）と現在完了（have changed）を組み合わせましょう。',
+      keywords: ['used to', 'have changed', 'still', 'when I was'] },
+  ],
+  // Lv.4 関係代名詞
+  [
+    { lvId: 4, grammar: '関係代名詞', wordRange: '80〜120語',
+      prompt: 'あなたが尊敬する人物（上司・先生・著名人など）を紹介してください。',
+      hint: 'who / which / that を使って情報を一文に繋げましょう。',
+      keywords: ['who', 'which', 'that', 'whose'] },
+    { lvId: 4, grammar: '関係代名詞', wordRange: '80〜120語',
+      prompt: 'あなたが住んでいる街や、行ってみたい場所を紹介してください。',
+      hint: 'which や that を使って場所の特徴を説明しましょう。',
+      keywords: ['which', 'that', 'where', 'who'] },
+    { lvId: 4, grammar: '関係代名詞', wordRange: '80〜120語',
+      prompt: 'おすすめの映画・本・音楽を一つ紹介してください。',
+      hint: 'which / that で作品の内容や特徴を説明する文を作りましょう。',
+      keywords: ['which', 'that', 'who', 'whose'] },
+  ],
+  // Lv.5 不定詞・動名詞
+  [
+    { lvId: 5, grammar: '不定詞・動名詞', wordRange: '80〜120語',
+      prompt: 'あなたが最近始めたこと、または続けていることを書いてください。不定詞と動名詞を意識して使いましょう。',
+      hint: 'enjoy / keep / finish の後は動名詞、want / hope / decide の後は不定詞です。',
+      keywords: ['enjoy', 'want to', 'keep', 'started'] },
+    { lvId: 5, grammar: '不定詞・動名詞', wordRange: '80〜120語',
+      prompt: '将来の夢や目標について書いてください。やりたいこと・避けたいことも含めて書きましょう。',
+      hint: 'hope to / plan to / look forward to doing / avoid doing を使い分けましょう。',
+      keywords: ['hope to', 'plan to', 'look forward to', 'avoid'] },
+    { lvId: 5, grammar: '不定詞・動名詞', wordRange: '80〜120語',
+      prompt: '健康のために心がけていることと、やめるべきだと思う習慣を英語で書いてください。',
+      hint: 'try to / stop doing / consider doing / decide to を使いましょう。',
+      keywords: ['try to', 'stop', 'consider', 'decide to'] },
+  ],
+  // Lv.6 仮定法
+  [
+    { lvId: 6, grammar: '仮定法', wordRange: '80〜120語',
+      prompt: 'もし時間やお金が無制限にあったら、何をしたいか書いてください。',
+      hint: '仮定法過去（If I were / If I had）を使って書きましょう。',
+      keywords: ['If I were', 'If I had', 'would', 'could'] },
+    { lvId: 6, grammar: '仮定法', wordRange: '80〜120語',
+      prompt: 'もし違う職業に就けるとしたら、何になりたいですか？理由も書いてください。',
+      hint: 'If I could be / If I were を使って仮定の状況を描写しましょう。',
+      keywords: ['If I could', 'would become', 'because', 'would be able to'] },
+    { lvId: 6, grammar: '仮定法', wordRange: '80〜120語',
+      prompt: 'もし過去に戻れるとしたら、何を変えたいですか？',
+      hint: '仮定法過去完了（If I had done / would have done）を使いましょう。',
+      keywords: ['If I had', 'would have', 'could have', 'wish'] },
+  ],
+  // Lv.7 受動態・使役
+  [
+    { lvId: 7, grammar: '受動態・使役', wordRange: '80〜120語',
+      prompt: 'あなたの職場や学校で最近変わったことを、受動態を使って説明してください。',
+      hint: 'was introduced / has been changed / is being used などの受動態を使いましょう。',
+      keywords: ['was', 'were introduced', 'has been', 'is being'] },
+    { lvId: 7, grammar: '受動態・使役', wordRange: '80〜120語',
+      prompt: '有名な建物や作品について、いつ・誰によって作られたかを紹介してください。',
+      hint: 'was built / was written / was designed by を使って書きましょう。',
+      keywords: ['was built', 'was designed', 'was made', 'is known'] },
+    { lvId: 7, grammar: '受動態・使役', wordRange: '80〜120語',
+      prompt: '誰かに何かをしてもらった経験、または誰かに何かをさせた経験を書いてください。',
+      hint: 'have O done（～してもらう）/ make O do（～させる）/ get O to do を使いましょう。',
+      keywords: ['had it', 'got', 'made me', 'asked to'] },
+  ],
+  // Lv.8 比較表現
+  [
+    { lvId: 8, grammar: '比較表現', wordRange: '80〜120語',
+      prompt: '2つの国や都市を比べて、それぞれの特徴や違いを説明してください。',
+      hint: 'more ... than / as ... as / much more / far less を使いましょう。',
+      keywords: ['more', 'less', 'as ... as', 'compared to'] },
+    { lvId: 8, grammar: '比較表現', wordRange: '80〜120語',
+      prompt: '今と昔のテクノロジーを比較して、どちらがより便利か述べてください。',
+      hint: 'the more ... the better / much more convenient than を使いましょう。',
+      keywords: ['much more', 'far less', 'the better', 'whereas'] },
+    { lvId: 8, grammar: '比較表現', wordRange: '80〜120語',
+      prompt: 'あなたが好きな2つのものを比較して、どちらが好きか理由も含めて書いてください。',
+      hint: 'prefer A to B / not as ... as / the most ... を活用しましょう。',
+      keywords: ['prefer', 'not as', 'the most', 'rather than'] },
+  ],
+  // Lv.9 論理的表現
+  [
+    { lvId: 9, grammar: '論理的表現', wordRange: '100〜140語',
+      prompt: '環境問題についての自分の意見を、根拠を示しながら論理的に展開してください。',
+      hint: 'however / therefore / as a result / in addition を使って論理を繋ぎましょう。',
+      keywords: ['however', 'therefore', 'although', 'as a result'] },
+    { lvId: 9, grammar: '論理的表現', wordRange: '100〜140語',
+      prompt: 'SNSのメリットとデメリットについて、バランスよく論じてください。',
+      hint: 'on the other hand / furthermore / in contrast / consequently を使いましょう。',
+      keywords: ['on the other hand', 'furthermore', 'in contrast', 'consequently'] },
+    { lvId: 9, grammar: '論理的表現', wordRange: '100〜140語',
+      prompt: 'リモートワークと出社勤務を比較し、どちらが良いか自分の意見を述べてください。',
+      hint: 'while / in addition / nevertheless / to conclude で意見をまとめましょう。',
+      keywords: ['while', 'in addition', 'nevertheless', 'to conclude'] },
+  ],
+  // Lv.10 ビジネス表現
+  [
+    { lvId: 10, grammar: 'ビジネス表現', wordRange: '80〜120語',
+      prompt: '来週予定している会議の日程変更を同僚にメールで依頼してください。件名で用件を明示し、できる限り早く返信をもらえるよう一言添えてください。',
+      hint: 'ビジネスメールの定型表現（I would like to / regarding）を活用しましょう。',
+      keywords: ['I would like to', 'please', 'regarding', 'at your earliest convenience'] },
+    { lvId: 10, grammar: 'ビジネス表現', wordRange: '80〜120語',
+      prompt: '先日打ち合わせた内容をもとに、プロジェクトが順調に進んでいることを取引先に報告するメールを書いてください。資料を添付する旨と、今後の進め方についても触れてください。',
+      hint: '報告・添付の定型表現（I am pleased to / Please find attached）を使いましょう。',
+      keywords: ['I am pleased to', 'please find', 'as discussed', 'going forward'] },
+    { lvId: 10, grammar: 'ビジネス表現', wordRange: '80〜120語',
+      prompt: '自社の新サービスを顧客に提案するメールを書いてください。サービスの有用性について自分の意見も添え、質問があれば連絡してほしい旨と、今後のやりとりへの期待も表現してください。',
+      hint: '提案・勧誘の表現（We would like to / I believe）を活用しましょう。',
+      keywords: ['We would like to', 'I believe', 'should you have any questions', 'look forward to'] },
+  ],
+];
+
+export const TONE_LABELS: Record<string, string> = {
+  business: 'ビジネス',
+  casual: 'カジュアル',
+  academic: '学術',
+};
+
+export const TAG_COLORS: Record<string, [string, string]> = {
+  Grammar:    ['#FEE2E2', '#DC2626'],
+  Vocabulary: ['#DBEAFE', '#2563EB'],
+  Tone:       ['#D1FAE5', '#059669'],
+  Structure:  ['#FEF3C7', '#D97706'],
+  Spelling:   ['#EDE9FE', '#7C3AED'],
+};
+
+export const TYPE_CONFIG: Record<string, { label: string; bg: string; color: string }> = {
+  grammar:   { label: 'Grammar',    bg: '#FEE2E2', color: '#DC2626' },
+  vocab:     { label: 'Vocabulary', bg: '#DBEAFE', color: '#2563EB' },
+  tone:      { label: 'Tone',       bg: '#D1FAE5', color: '#059669' },
+  structure: { label: 'Structure',  bg: '#FEF3C7', color: '#D97706' },
+  spelling:  { label: 'Spelling',   bg: '#EDE9FE', color: '#7C3AED' },
+};
