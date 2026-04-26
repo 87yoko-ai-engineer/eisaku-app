@@ -47,28 +47,8 @@ export function Nav() {
         EiSaku
       </Link>
 
-      {/* Desktop nav links */}
-      <div className="hidden lg:flex" style={{ gap: 2, flex: 1 }}>
-        {LINKS.map((l) => {
-          const active = pathname === l.href;
-          return (
-            <Link key={l.href} href={l.href} style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              padding: '6px 14px', borderRadius: 8,
-              background: active ? '#FCE7F3' : 'transparent',
-              color: active ? '#EC4899' : '#6B7280',
-              fontWeight: active ? 600 : 400,
-              fontSize: 14, textDecoration: 'none', transition: 'all 0.15s',
-            }}>
-              <Icon name={l.icon} size={15} />
-              {l.label}
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Tablet/Mobile icon-only nav links */}
-      <div className="flex lg:hidden" style={{ gap: 0, flex: 1 }}>
+      {/* Icon-only nav links */}
+      <div className="flex" style={{ gap: 0, flex: 1 }}>
         {LINKS.map((l) => {
           const active = pathname === l.href;
           return (
@@ -86,23 +66,8 @@ export function Nav() {
       </div>
 
       <div ref={ref} style={{ position: 'relative' }}>
-        {/* Desktop badge */}
-        <button onClick={() => setOpen((o) => !o)} className="hidden lg:flex" style={{
-          alignItems: 'center', gap: 8,
-          background: lv.bg, border: `1px solid ${lv.border}`,
-          borderRadius: 20, padding: '5px 12px',
-          fontSize: 13, color: lv.color, fontWeight: 600,
-          cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s',
-        }}>
-          <Icon name="zap" size={13} color={lv.color} />
-          <span>{lv.label} — {lv.name}</span>
-          <Icon name="chevronDown" size={12} color={lv.color} />
-          <span style={{ color: lv.border }}>|</span>
-          <Icon name="flame" size={13} color="#F97316" />
-          <span style={{ color: '#C2410C' }}>{progress.streak}日連続</span>
-        </button>
-        {/* Mobile compact badge */}
-        <button onClick={() => setOpen((o) => !o)} className="flex lg:hidden" style={{
+        {/* Compact badge */}
+        <button onClick={() => setOpen((o) => !o)} className="flex" style={{
           alignItems: 'center', gap: 4,
           background: lv.bg, border: `1px solid ${lv.border}`,
           borderRadius: 16, padding: '4px 8px',

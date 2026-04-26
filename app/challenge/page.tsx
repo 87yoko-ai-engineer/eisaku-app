@@ -48,13 +48,17 @@ export default function ChallengePage() {
   const chatBottomRef = useRef<HTMLDivElement | null>(null);
 
   const prevLevelRef = useRef(progress.level);
+  const levelUpFromCorrectionRef = useRef(false);
   useEffect(() => {
     if (prevLevelRef.current !== progress.level) {
       prevLevelRef.current = progress.level;
       setPromptIndex(0);
       setWeakMode(false);
       setInputText('');
-      setResult(null);
+      if (!levelUpFromCorrectionRef.current) {
+        setResult(null);
+      }
+      levelUpFromCorrectionRef.current = false;
     }
   }, [progress.level]);
 
@@ -71,10 +75,18 @@ export default function ChallengePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: inputText, tone: 'business', mode: 'challenge', level: progress.level, targetGrammar: promptData.grammar, keywords: promptData.keywords }),
       });
+      if (res.status === 403) {
+        const err = await res.json();
+        if (err.error === 'trial_limit_exceeded') {
+          alert(`お試し利用の上限（${err.limit}回）に達しました。\n引き続き利用をご希望の場合はお問い合わせください。`);
+          return;
+        }
+      }
       if (!res.ok) throw new Error('API error');
       const data: CorrectionResult = await res.json();
       setResult(data);
       recordResult(questionId, data.score, data.grammarCheckPassed ?? null);
+      levelUpFromCorrectionRef.current = true;
       recordCorrection({ score: data.score, wordCount, mode: 'Challenge', grammarCheckPassed: data.grammarCheckPassed });
       add({ date: new Date().toISOString(), mode: 'Challenge', level: progress.level, inputText, result: data });
     } catch {

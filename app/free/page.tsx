@@ -39,6 +39,13 @@ export default function FreePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: inputText, tone, mode: 'free', level: progress.level }),
       });
+      if (res.status === 403) {
+        const err = await res.json();
+        if (err.error === 'trial_limit_exceeded') {
+          alert(`お試し利用の上限（${err.limit}回）に達しました。\n引き続き利用をご希望の場合はお問い合わせください。`);
+          return;
+        }
+      }
       if (!res.ok) throw new Error('API error');
       const data: CorrectionResult = await res.json();
       setResult(data);
